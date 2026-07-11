@@ -63,9 +63,3 @@ sentences = [
     "Consistency is the key to mastering new skills."
 
 ]
-
-if __name__ == "__main__":
-    print(f"Total Sentences: {len(sentences)}\n")
-
-    for i, sentence in enumerate(sentences, start=1):
-        print(f"{i}. {sentence}")
