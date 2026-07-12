@@ -48,6 +48,52 @@ def build_vocabulary(sentences):
 
     return vocabulary
 
+def sentence_to_vector(sentence, vocabulary):
+    """
+    Convert a sentence into a Bag of Words vector.
+
+    """
+
+    words = preprocess_text(sentence)
+
+    vector = []
+
+    for vocab_word in vocabulary:
+        count = 0
+
+        for word in words:
+            if word == vocab_word:
+                count += 1
+
+        vector.append(count)
+
+    return vector
+
+
+def build_document_vectors(sentences, vocabulary):
+    """
+    Convert every sentence in the dataset into a vector.
+    """
+
+    document_vectors = []
+
+    for sentence in sentences:
+        vector = sentence_to_vector(sentence, vocabulary)
+        document_vectors.append(vector)
+
+    return document_vectors
+
+def get_embeddings(sentences):
+    """
+    Build the vocabulary and convert all sentences
+    into their Bag of Words vectors.
+    """
+
+    vocabulary = build_vocabulary(sentences)
+
+    vectors = build_document_vectors(sentences, vocabulary)
+
+    return vectors, vocabulary
 
 if __name__ == "__main__":
 
@@ -57,7 +103,18 @@ if __name__ == "__main__":
     print("VOCABULARY")
     print("=" * 60)
 
-    print(f"\nTotal Unique Words: {len(vocabulary)}\n")
+    print(vocabulary)
 
-    for index, word in enumerate(vocabulary):
-        print(f"{index:3} --> {word}")
+    print("\n")
+
+    vectors = build_document_vectors(sentences, vocabulary)
+
+    print("=" * 60)
+    print("FIRST SENTENCE")
+    print("=" * 60)
+
+    print(sentences[0])
+
+    print("\nVector:\n")
+
+    print(vectors[0])
